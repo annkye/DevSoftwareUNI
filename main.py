@@ -1,5 +1,3 @@
-#Для начала необходимо через терминал установить pip install pandas, pip install requests, pip install openpyxl
-#Первая библиотека нужна для работы с массивом данных, вторая позволяет работать с ссылками и скачивать непосредственно файл
 import requests
 import pandas
 import sys
