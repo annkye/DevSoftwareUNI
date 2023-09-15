@@ -1,4 +1,6 @@
 import requests
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 import pandas
 import sys
 import os
@@ -28,16 +30,15 @@ except:
     sys.exit()
     
 choosedGroup = str(input("Введите название группы:"))
-marksChoosedGroup = len(studentsMarksFGS[studentsMarksFGS['Группа'] == choosedGroup])
+marksChoosedGroup = str(len(studentsMarksFGS[studentsMarksFGS['Группа'] == choosedGroup]))
 if marksChoosedGroup == 0:
     print("Такой группы не существует")
     sys.exit()
-
-marksCount = studentsMarksFGS.count()[0] #по умолчанию возвращает количество значений вдоль каждого столбца
+marksCount = str(studentsMarksFGS.count()[0]) #по умолчанию возвращает количество значений вдоль каждого столбца
 studentsChoosedGroup = pandas.DataFrame(studentsMarksFGS[studentsMarksFGS['Группа'] == choosedGroup])
 personalIDStudentsGroup = studentsChoosedGroup['Личный номер студента'].unique()
-countStudentsChoosedGroup = len(studentsChoosedGroup['Личный номер студента'].unique())
-print("В исходном датасете содержалось", marksCount, "оценок, из них ", marksChoosedGroup, "оценок относятся к группе", choosedGroup, "\nВ датасете находятся оценки", countStudentsChoosedGroup, "студентов со следующими личными номерами:", personalIDStudentsGroup, "\nИспользуемые формы контроля:", studentsChoosedGroup['Уровень контроля'].unique(), "\nДанные представлены по следующим учебным годам:", studentsChoosedGroup['Год'].unique())
+countStudentsChoosedGroup = str(len(studentsChoosedGroup['Личный номер студента'].unique()))
+print('В исходном датасете содержалось ' + marksCount + ' оценок, из них ' + marksChoosedGroup + ' оценок относятся к группе ' + choosedGroup + '\nВ датасете находятся оценки ' + countStudentsChoosedGroup + ' студентов со следующими личными номерами: ' + ', '.join(map(str,personalIDStudentsGroup)) + '\nИспользуемые формы контроля: ' + ', '.join(map(str,studentsChoosedGroup['Уровень контроля'].unique())) + '\nДанные представлены по следующим учебным годам: ' + ', '.join(map(str,studentsChoosedGroup['Год'].unique())))
 
 
 
